@@ -161,7 +161,7 @@ static int keyboard_init(void)
     {
         if (gpio_request(gpioMap[i], "GPIO_Keyboard"))
         {
-            printk (KERN_INFO "GPIO_Keyboard: %s unable to get GPIO_OUT\n", __func__ );
+            printk (KERN_INFO "GPIO_Keyboard: %s unable to request GPIO\n", __func__ );
             returnValue = -EBUSY;
             goto DONE;
         }
