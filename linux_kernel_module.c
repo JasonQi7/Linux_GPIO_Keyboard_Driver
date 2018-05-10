@@ -75,12 +75,12 @@ inline static irq_handler_t InterruptHandler_general(unsigned int irq, struct pt
     // Disable further interrupts
     local_irq_save(flags);
     sendKey(state, column);
-
-    // Restore interrupts, update interrupt time
-    local_irq_restore(flags);
     lastInterruptTime = interruptTime;
     pressCounter=0;
 
+     // Restore interrupts, update interrupt time
+    local_irq_restore(flags);
+  
     return (irq_handler_t)IRQ_HANDLED;
 }
 
@@ -141,10 +141,12 @@ static irq_handler_t InterruptHandler_3(unsigned int irq, struct pt_regs *regs )
         pressCounter = 0;
         sendKey(state, 3);
     }
-
+  
+    lastPressTime = interruptTime;
+  
     // Restore hard interrupts
     local_irq_restore(flags);
-    lastPressTime = interruptTime;
+  
     return (irq_handler_t)IRQ_HANDLED;
 }
 
